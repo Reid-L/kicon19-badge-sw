@@ -78,23 +78,35 @@ static void init_system(void)
     led_blink(LED2, 4);
 }
 
-
-int main(void)
-{
-    init_system();
-
-    /* Splash screen */
-    SSD1306_drawBitmap(0, 0, kicon_logo, 128, 32);
-    SSD1306_drawBufferDMA();
-
-    /* wait ~3s or till a button is pressed */
-    for(int i = 0; i < (1 << 20); ++i) {
+void delay(int loops) {
+    for(int i = 0; i < (1 << loops); ++i) {
         if (btn_state()) {
             break;
         }
     }
+}
+int main(void)
+{
+    init_system();
 
-    while(1) {
-        menu();
+  while(1) {
+    /* Splash screen */
+    SSD1306_drawBitmap(0, 0, digikey_logo, 128, 64);
+    SSD1306_drawBufferDMA();
+
+        /* wait ~3s or till a button is pressed */
+    delay(20);
+    delay(20);
+
+    SSD1306_clearBufferFull();
+    SSD1306_setString(6, 1, "Hi! I'm             ", 20, WHITE);
+    SSD1306_setString(6, 3, "                    ", 20, WHITE);
+    SSD1306_setString(6, 5, "From Digi-key       ", 20, WHITE);
+    SSD1306_drawBufferDMA();
+
+    delay(20);
+    delay(20);
+
+        //menu();
     }
 }
