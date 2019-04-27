@@ -27,6 +27,12 @@
 #include "apps_list.h"
 #include <stddef.h>
 
+#define LINE0 " __  __ _ _"
+#define LINE1 "|  \\/  (_) | _____ "
+#define LINE2 "| |\\/| | | |/ / _ \\"
+#define LINE3 "| |  | | |   <  __/"
+#define LINE4 "|_|  |_|_|_|\\_\\___|"
+
 int get_menu_size(const menu_list_t *menu) {
     int len = 0;
     const menu_entry_t* ptr = menu->entries;
@@ -38,7 +44,7 @@ int get_menu_size(const menu_list_t *menu) {
 }
 
 
-application_t app_la_usb = { "Logic analyzer (USB)", app_la_usb_func };
+application_t app_la_usb = { LINE0, app_la_usb_func };
 
 
 menu_list_t menu_la_lcd_sampling_freq = {
@@ -79,7 +85,7 @@ menu_list_t menu_la_lcd_trigger_level = {
 application_t app_la_lcd = { "RUN", app_la_lcd_func };
 
 menu_list_t menu_la_lcd = {
-    "Logic analyzer (LCD)", 0,
+    LINE1, 0,
     {
         { APP,       { .app     = &app_la_lcd } },
         { SUBMENU,   { .submenu = &menu_la_lcd_sampling_freq } },
@@ -123,7 +129,7 @@ menu_list_t menu_scope_fsampling = {
 application_t app_scope = { "RUN", app_scope_func };
 
 menu_list_t menu_scope = {
-    "Scope", 0,
+    LINE2, 0,
     {
         { APP,       { .app     = &app_scope } },
         { SUBMENU,   { .submenu = &menu_scope_channels } },
@@ -134,7 +140,7 @@ menu_list_t menu_scope = {
 };
 
 
-application_t app_command = { "Command interface", app_command_func };
+application_t app_command = { LINE3, app_command_func };
 
 
 application_t app_uart = { "RUN", app_uart_func };
@@ -150,10 +156,28 @@ menu_list_t menu_uart_baud = {
 };
 
 menu_list_t menu_uart = {
-    "USB-UART adapter", 0,
+    LINE4, 0,
     {
-        { APP,      { .app     = &app_uart } },
-        { SUBMENU,  { .submenu = &menu_uart_baud } },
+        { APP,      { .app     = 0 } },
+        { SUBMENU,  { .submenu = 0 } },
+        { END,      { NULL } }
+    }
+};
+
+menu_list_t menu_bl1 = {
+    " ", 0,
+    {
+        { APP,      { .app     = 0 } },
+        { SUBMENU,  { .submenu = 0 } },
+        { END,      { NULL } }
+    }
+};
+
+menu_list_t menu_hack = {
+    "HACKADAY", 0,
+    {
+        { APP,      { .app     = 0 } },
+        { SUBMENU,  { .submenu = 0 } },
         { END,      { NULL } }
     }
 };
@@ -161,6 +185,8 @@ menu_list_t menu_uart = {
 menu_list_t main_menu = {
     "Main menu", 0,
     {
+       { SUBMENU,   { .submenu = &menu_hack } },
+       { SUBMENU,   { .submenu = &menu_bl1 } },
        { APP,       { .app     = &app_la_usb } },
        { SUBMENU,   { .submenu = &menu_la_lcd } },
        { SUBMENU,   { .submenu = &menu_scope } },

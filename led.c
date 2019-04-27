@@ -115,6 +115,7 @@ void TC0_Handler(void) {
     /* Clear status bit to acknowledge interrupt */
     tc_get_status(TC0, 0);
 
+    /*
     if (led_blink_period1 > 0 && ++led_blink_cnt1 == led_blink_period1) {
         led_blink_cnt1 = 0;
         pio_toggle_pin(LED1_IDX);
@@ -124,6 +125,7 @@ void TC0_Handler(void) {
         led_blink_cnt2 = 0;
         pio_toggle_pin(LED2_IDX);
     }
+    */
 }
 
 

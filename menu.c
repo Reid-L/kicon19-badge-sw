@@ -100,12 +100,12 @@ static void menu_draw(void) {
         }
 
         SSD1306_setString(0, i, entryName, strlen(entryName),
-                entry_idx == selection ? BLACK : WHITE);
-
+                 WHITE); //selection ? BLACK : WHITE);
+        /*
         if (entry->type == SETTING && entry_idx == menu_current->val) {
             SSD1306_setString(128 - 6, i, "<", 1,
-                entry_idx == selection ? BLACK : WHITE);
-        }
+                entry_idx == WHITE); //selection ? BLACK : WHITE);
+        }*/
     }
 
     SSD1306_drawBufferDMA();
